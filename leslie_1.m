@@ -36,14 +36,14 @@ v_1(1,:) = bin_add(v_12(1,:),zeros(1,12));
 v_tmp_2(1,:) = bin_add(v_tmp_1(1,:),zeros(1,12));
 v_2(1,:) = bin_add(v_1(1,:),zeros(1,12));
 v_tmp_3(1,:) = bin_add(sgn_xtnd(v_tmp12(1,:)),two_cmpl(sgn_xtnd(v_tmp_2(1,:))));
-v_lsli(1,:) = bin_add(sgn_xtnd(v_2(1,:)),v_tmp_3(1,:));
+v_lsli(1,:) = bin_add(v_2(1,:),v_tmp_3(1,:));
 for i=2:numel(v)
 v_tmp_1(i,:) = bin_add(sgn_xtnd(v_tmp12(i,:)),two_cmpl(sgn_xtnd(v_tmp12(i-1,:))));
 v_1(i,:) = bin_add(sgn_xtnd(v_12(i,:)),two_cmpl(sgn_xtnd(v_12(i-1,:))));
 v_tmp_2(i,:) = bin_add(sgn_xtnd(v_tmp_1(i,:)),two_cmpl(sgn_xtnd(v_tmp_1(i-1,:))));
 v_2(i,:) = bin_add(sgn_xtnd(v_1(i,:)),two_cmpl(sgn_xtnd(v_1(i-1,:))));
 v_tmp_3(i,:) = bin_add(sgn_xtnd(v_tmp12(i,:)),two_cmpl(sgn_xtnd(v_tmp_2(i,:))));
-v_lsli(i,:) = bin_add(sgn_xtnd(v_2(i,:)),v_tmp_3(i,:));
+v_lsli(i,:) = bin_add(v_2(i,:),v_tmp_3(i,:));
 end
 v_lsli_a = zeros(1,numel(v));
 for i=1:numel(v)
@@ -64,7 +64,7 @@ for i=1:numel(vw_tmp)
 end
 vw = ds_quantize(3.*yw,4); vw_12 = zeros(numel(vw),12);
 for i=1:numel(vw)
-    if (vw(i) == -2)
+    if (vw(i) == -3)
         vw_12(i,:) = [1 zeros(1,11)];
     end
     if (vw(i) == -1)
@@ -73,7 +73,7 @@ for i=1:numel(vw)
     if (vw(i) == 1)
         vw_12(i,:) = [0 1 zeros(1,10)];
     end
-    if (vw(i) == 2)
+    if (vw(i) == 3)
         vw_12(i,:) = [0 ones(1,11)];
     end
 end
@@ -84,14 +84,14 @@ vw_1(1,:) = bin_add(vw_12(1,:),zeros(1,12));
 vw_tmp_2(1,:) = bin_add(vw_tmp_1(1,:),zeros(1,12));
 vw_2(1,:) = bin_add(vw_1(1,:),zeros(1,12));
 vw_tmp_3(1,:) = bin_add(sgn_xtnd(vw_tmp12(1,:)),two_cmpl(sgn_xtnd(vw_tmp_2(1,:))));
-vw_lsli(1,:) = bin_add(sgn_xtnd(vw_2(1,:)),vw_tmp_3(1,:));
+vw_lsli(1,:) = bin_add(vw_2(1,:),vw_tmp_3(1,:));
 for i=2:numel(vw)
 vw_tmp_1(i,:) = bin_add(sgn_xtnd(vw_tmp12(i,:)),two_cmpl(sgn_xtnd(vw_tmp12(i-1,:))));
 vw_1(i,:) = bin_add(sgn_xtnd(vw_12(i,:)),two_cmpl(sgn_xtnd(vw_12(i-1,:))));
 vw_tmp_2(i,:) = bin_add(sgn_xtnd(vw_tmp_1(i,:)),two_cmpl(sgn_xtnd(vw_tmp_1(i-1,:))));
 vw_2(i,:) = bin_add(sgn_xtnd(vw_1(i,:)),two_cmpl(sgn_xtnd(vw_1(i-1,:))));
 vw_tmp_3(i,:) = bin_add(sgn_xtnd(vw_tmp12(i,:)),two_cmpl(sgn_xtnd(vw_tmp_2(i,:))));
-vw_lsli(i,:) = bin_add(sgn_xtnd(vw_2(i,:)),vw_tmp_3(i,:));
+vw_lsli(i,:) = bin_add(vw_2(i,:),vw_tmp_3(i,:));
 end
 vw_lsli_a = zeros(1,numel(vw));
 for i=1:numel(v)
