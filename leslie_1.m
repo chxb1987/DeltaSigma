@@ -1,17 +1,19 @@
 N = 32768; fs = 1e6; f = (33*fs)/N;
-u = 3*sin(2*pi*f.*(0:1/fs:N/fs)); w = (10e-4).*normrnd(0,1,1,N+1); 
+u = 3*sin(2*pi*f.*(0:1/fs:N/fs)); w = (10e-4).*normrnd(0,1,1,N+1);
 order = 2; OSR = N/66; nlev = 2;
 ntf = synthesizeNTF(order,OSR); plotPZ(ntf);
 fx = -0.5*fs:fs/N:0.5*fs; fint = (0.5*N+3):((0.5*N+1)+ N*1.5*f/fs);
 
-[snr,v_tmp,y] = sd_test_func(N,fs,f,0.7721.*u./3,w,order,OSR,ntf,nlev);
+[snr,v_tmp,y] = sd_test_func(N,fs,f,0.7071.*u./3,w,order,OSR,ntf,nlev);
 v_tmp12 = zeros(numel(v_tmp),12);
 for i=1:numel(v_tmp)
     if (v_tmp(i) == -1)
-        v_tmp12(i,:) = [1 zeros(1,11)];
+%         v_tmp12(i,:) = [1 zeros(1,11)];
+          v_tmp12(i,:) = [1 0 repmat([1 0],1,5)];
     end
     if (v_tmp(i) == 1)
-        v_tmp12(i,:) = [0 ones(1,11)];
+%         v_tmp12(i,:) = [0 ones(1,11)];
+          v_tmp12(i,:) = [0 1 repmat([0 1],1,5)];
     end
 end
 v = ds_quantize(3.*y,4); v_12 = zeros(numel(v),12);
@@ -20,10 +22,12 @@ for i=1:numel(v)
         v_12(i,:) = [1 zeros(1,11)];
     end
     if (v(i) == -1)
-        v_12(i,:) = [1 1 zeros(1,10)];
+%         v_12(i,:) = [1 1 zeros(1,10)];
+          v_12(i,:) = [1 1 repmat([0 1],1,5)];
     end
     if (v(i) == 1)
-        v_12(i,:) = [0 1 zeros(1,10)];
+%         v_12(i,:) = [0 1 zeros(1,10)];
+          v_12(i,:) = [0 0 repmat([1 0],1,5)];
     end
     if (v(i) == 3)
         v_12(i,:) = [0 ones(1,11)];
@@ -56,10 +60,12 @@ v_lsli_a = 2.*v_lsli_a;
 vw_tmp12 = zeros(numel(vw_tmp),12);
 for i=1:numel(vw_tmp)
     if (vw_tmp(i) == -1)
-        vw_tmp12(i,:) = [1 zeros(1,11)];
+%         vw_tmp12(i,:) = [1 zeros(1,11)];
+          v_tmp12(i,:) = [1 0 repmat([1 0],1,5)];
     end
     if (vw_tmp(i) == 1)
-        vw_tmp12(i,:) = [0 ones(1,11)];
+%         vw_tmp12(i,:) = [0 ones(1,11)];
+          v_tmp12(i,:) = [0 1 repmat([0 1],1,5)];
     end
 end
 vw = ds_quantize(3.*yw,4); vw_12 = zeros(numel(vw),12);
@@ -68,10 +74,12 @@ for i=1:numel(vw)
         vw_12(i,:) = [1 zeros(1,11)];
     end
     if (vw(i) == -1)
-        vw_12(i,:) = [1 1 zeros(1,10)];
+%         vw_12(i,:) = [1 1 zeros(1,10)];
+          v_12(i,:) = [1 1 repmat([0 1],1,5)];
     end
     if (vw(i) == 1)
-        vw_12(i,:) = [0 1 zeros(1,10)];
+%         vw_12(i,:) = [0 1 zeros(1,10)];
+          v_12(i,:) = [0 0 repmat([1 0],1,5)];
     end
     if (vw(i) == 3)
         vw_12(i,:) = [0 ones(1,11)];
